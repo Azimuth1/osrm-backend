@@ -41,7 +41,7 @@ struct Parameters
     double kSearchSpaceOverlapFactor = 1.8;
     // Unpack n-times more candidate paths to run high-quality checks on.
     // Unpacking paths yields higher chance to find good alternatives but is also expensive.
-    unsigned kAlternativesToUnpackFactor = 2;
+    unsigned kAlternativesToUnpackFactor = 6;
     // Alternative paths length requirement (stretch).
     // At most 25% longer then the shortest path.
     double kAtMostLongerBy = 0.25;
@@ -143,7 +143,7 @@ Parameters parametersFromRequest(const PhantomNodes &phantom_node_pair)
     // 10km
     if (distance < 10000.)
     {
-        parameters.kAlternativesToUnpackFactor = 10.0;
+        parameters.kAlternativesToUnpackFactor = 30.0;
         parameters.kCellsAtMostSameBy = 1.0;
         parameters.kAtLeastOptimalAroundViaBy = 0.2;
         parameters.kAtMostSameBy = 0.50;
