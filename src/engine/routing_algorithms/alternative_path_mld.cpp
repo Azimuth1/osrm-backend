@@ -38,7 +38,7 @@ struct Parameters
 {
     // Alternative paths candidate via nodes are taken from overlapping search spaces.
     // Overlapping by a third guarantees us taking candidate nodes "from the middle".
-    double kSearchSpaceOverlapFactor = 1.33;
+    double kSearchSpaceOverlapFactor = 1.8;
     // Unpack n-times more candidate paths to run high-quality checks on.
     // Unpacking paths yields higher chance to find good alternatives but is also expensive.
     unsigned kAlternativesToUnpackFactor = 2;
