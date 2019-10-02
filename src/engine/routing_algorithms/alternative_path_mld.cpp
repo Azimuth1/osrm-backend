@@ -38,19 +38,20 @@ struct Parameters
 {
     // Alternative paths candidate via nodes are taken from overlapping search spaces.
     // Overlapping by a third guarantees us taking candidate nodes "from the middle".
-    double kSearchSpaceOverlapFactor = 1.33;
+    double kSearchSpaceOverlapFactor = 1.8;
     // Unpack n-times more candidate paths to run high-quality checks on.
     // Unpacking paths yields higher chance to find good alternatives but is also expensive.
-    unsigned kAlternativesToUnpackFactor = 2;
+    unsigned kAlternativesToUnpackFactor = 20;
     // Alternative paths length requirement (stretch).
-    // At most 25% longer then the shortest path.
-    double kAtMostLongerBy = 0.25;
+    // At most 40% longer then the shortest path.
+    double kAtMostLongerBy = 0.40;
     // Alternative paths similarity requirement (sharing).
-    // At least 25% different than the shortest path.
-    double kAtMostSameBy = 0.75;
+    // Instead of: At least 25% different than the shortest path.
+    //           : Require the alternatives to be completely different
+    double kAtMostSameBy = 0;
     // Alternative paths are still reasonable around the via node candidate (local optimality).
     // At least optimal around 10% sub-paths around the via node candidate.
-    double kAtLeastOptimalAroundViaBy = 0.1;
+    double kAtLeastOptimalAroundViaBy = .4;
     // Alternative paths similarity requirement (sharing) based on cells.
     // At least 5% different than the shortest path.
     double kCellsAtMostSameBy = 0.95;
@@ -143,32 +144,32 @@ Parameters parametersFromRequest(const PhantomNodes &phantom_node_pair)
     // 10km
     if (distance < 10000.)
     {
-        parameters.kAlternativesToUnpackFactor = 10.0;
+        parameters.kAlternativesToUnpackFactor = parameters.kAlternativesToUnpackFactor * 5;
         parameters.kCellsAtMostSameBy = 1.0;
-        parameters.kAtLeastOptimalAroundViaBy = 0.2;
-        parameters.kAtMostSameBy = 0.50;
+        parameters.kAtLeastOptimalAroundViaBy = 0.4;
+        parameters.kAtMostSameBy = 0;
     }
     // 20km
     else if (distance < 20000.)
     {
-        parameters.kAlternativesToUnpackFactor = 8.0;
+        parameters.kAlternativesToUnpackFactor = parameters.kAlternativesToUnpackFactor * 4;
         parameters.kCellsAtMostSameBy = 1.0;
-        parameters.kAtLeastOptimalAroundViaBy = 0.2;
-        parameters.kAtMostSameBy = 0.60;
+        parameters.kAtLeastOptimalAroundViaBy = 0.4;
+        parameters.kAtMostSameBy = 0;
     }
     // 50km
     else if (distance < 50000.)
     {
-        parameters.kAlternativesToUnpackFactor = 6.0;
+        parameters.kAlternativesToUnpackFactor = parameters.kAlternativesToUnpackFactor * 3;
         parameters.kCellsAtMostSameBy = 0.95;
-        parameters.kAtMostSameBy = 0.65;
+        parameters.kAtMostSameBy = 0;
     }
     // 100km
     else if (distance < 100000.)
     {
-        parameters.kAlternativesToUnpackFactor = 4.0;
+        parameters.kAlternativesToUnpackFactor = parameters.kAlternativesToUnpackFactor * 2;
         parameters.kCellsAtMostSameBy = 0.95;
-        parameters.kAtMostSameBy = 0.70;
+        parameters.kAtMostSameBy = 0;
     }
 
     return parameters;
