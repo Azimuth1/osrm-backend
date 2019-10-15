@@ -38,10 +38,10 @@ struct Parameters
 {
     // Alternative paths candidate via nodes are taken from overlapping search spaces.
     // Overlapping by a third guarantees us taking candidate nodes "from the middle".
-    double kSearchSpaceOverlapFactor = 1.33;
+    double kSearchSpaceOverlapFactor = 2;
     // Unpack n-times more candidate paths to run high-quality checks on.
     // Unpacking paths yields higher chance to find good alternatives but is also expensive.
-    unsigned kAlternativesToUnpackFactor = 2;
+    unsigned kAlternativesToUnpackFactor = 20;
     // Alternative paths length requirement (stretch).
     // At most 25% longer then the shortest path.
     double kAtMostLongerBy = 0.25;
@@ -143,7 +143,7 @@ Parameters parametersFromRequest(const PhantomNodes &phantom_node_pair)
     // 10km
     if (distance < 10000.)
     {
-        parameters.kAlternativesToUnpackFactor = 10.0;
+        parameters.kAlternativesToUnpackFactor = 100.0;
         parameters.kCellsAtMostSameBy = 1.0;
         parameters.kAtLeastOptimalAroundViaBy = 0.2;
         parameters.kAtMostSameBy = 0.50;
@@ -151,7 +151,7 @@ Parameters parametersFromRequest(const PhantomNodes &phantom_node_pair)
     // 20km
     else if (distance < 20000.)
     {
-        parameters.kAlternativesToUnpackFactor = 8.0;
+        parameters.kAlternativesToUnpackFactor = 80.0;
         parameters.kCellsAtMostSameBy = 1.0;
         parameters.kAtLeastOptimalAroundViaBy = 0.2;
         parameters.kAtMostSameBy = 0.60;
@@ -159,14 +159,14 @@ Parameters parametersFromRequest(const PhantomNodes &phantom_node_pair)
     // 50km
     else if (distance < 50000.)
     {
-        parameters.kAlternativesToUnpackFactor = 6.0;
+        parameters.kAlternativesToUnpackFactor = 60.0;
         parameters.kCellsAtMostSameBy = 0.95;
         parameters.kAtMostSameBy = 0.65;
     }
     // 100km
     else if (distance < 100000.)
     {
-        parameters.kAlternativesToUnpackFactor = 4.0;
+        parameters.kAlternativesToUnpackFactor = 40.0;
         parameters.kCellsAtMostSameBy = 0.95;
         parameters.kAtMostSameBy = 0.70;
     }
